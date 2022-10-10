@@ -1,0 +1,50 @@
+{{> /partials/header }}
+
+<div class="ui segment">
+	<button class="ui labeled icon green button" @click="newFormOrga"><i class="plus icon"></i>Ajouter une organisation</button>
+	{{> /orgas/form }}
+</div>
+
+<div v-if="toDelete" class="ui warning icon message">
+  <i class="warning icon"></i>
+  <div class="content">
+    <div class="header">Suppression d'organisation ?</div>
+    <p>Supprimer l'organisation <% toDelete.name %> ?</p>
+    <hr>
+    <div @click="remove(toDelete)" class="ui positive button">Okay</div>
+    <div @click="toDelete=null" class="ui button">Annuler</div>
+  </div>
+</div>
+
+<table class="ui selectable celled table">
+	<thead>
+   		<tr>
+    		<th>Nom</th>
+    		<th>Domain</th>
+    		<th>Aliases</th>
+    		<th>Actions</th>
+		</tr>
+	</thead>
+  	<tbody>
+    	<tr v-for="orga in organizations">
+      		<td><% orga.name %></td>
+      		<td><% orga.domain %></td>
+      		<td><% orga.aliases %></td>
+      		<td>
+      			<a  class="circular ui icon button">
+      				<i class="eye icon"></i>
+      			</a>
+      			
+      			<div @click="editForm(orga)" class="circular ui blue icon button">
+      				<i class="ui edit icon"></i>
+      			</div>
+      			
+      			<div @click="confDelete(orga)" class="circular ui red icon button">
+      				<i class="ui trash icon"></i>
+      			</div>
+   			</td>
+    	</tr>
+  	</tbody>
+</table>
+
+{{> /partials/footer }}

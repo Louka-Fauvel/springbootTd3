@@ -1,0 +1,22 @@
+<br><br>
+<div @keyup.enter="addOrUpdate" v-if="orga" class="ui form">
+	
+	<div class="field">
+   		<label>Nom</label>
+   	 	<input type="text" name="name" placeholder="Nom" v-model="orga.name">
+  	</div>
+  
+  	<div class="field">
+    	<label>Aliases</label>
+    	<input type="text" name="aliases" placeholder="Aliases" v-model="orga.aliases">
+  	</div>
+  
+  	<div class="field">
+    	<label>Domain</label>
+    	<input type="text" name="domain" placeholder="Domain" v-model="orga.domain">
+  	</div>
+  	
+  	<button v-if="!orga.id" @click="newOrgaSubmit" class="ui green button">Valider</button>
+  	<button v-if="orga.id" @click="updateOrgaSubmit" class="ui green button">Valider edit</button>
+  	<button @click="orga=null" class="ui red button">Annuler</button>
+</div>
