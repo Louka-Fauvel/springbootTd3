@@ -21,4 +21,8 @@ public class UIOrgaService {
 		return "$.toast({position: 'top attached', class: 'success', title: '" + title + "', message: `" + message + "`})";
 	}
 	
+	public String modal() {
+		return "$('.ui.modal').modal('show');";
+	}
+	
 }

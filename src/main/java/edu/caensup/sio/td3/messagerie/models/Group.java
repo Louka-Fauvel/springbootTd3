@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -20,40 +18,31 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor()
+@RequiredArgsConstructor()
 @Entity
-public class User {
+public class Group {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	@NonNull
-	@Column(length = 30, nullable = false)
-	private String firstname;
-	
+	@Column(length = 40, nullable = false)
+	private String name;
+
 	@NonNull
-	@Column(length = 30, nullable = false)
-	private String lastname;
-	
-	@NonNull
-	@Column(length = 255, nullable = false)
+	@Column(length = 40, nullable = false)
 	private String email;
-	
+
 	@NonNull
-	@Column(nullable = false)
-	private String password;
-	
-	@Column(nullable = true)
-	private boolean suspended;
-	
-	@JsonIgnore
+	@Column(length = 40, nullable = false)
+	private String aliases;
+
+	@ManyToMany()
+	private List<User> users;
+
 	@ManyToOne
 	private Organization organization;
-	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "users")
-	private List<Group> groups;
 	
 }

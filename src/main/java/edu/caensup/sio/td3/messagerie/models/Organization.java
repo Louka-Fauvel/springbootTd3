@@ -45,6 +45,10 @@ public class Organization {
 	@OneToMany(mappedBy = "organization", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private List<User> users;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "organization", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	private List<Group> groups;
+	
 	public void addUser(User us) {
 		
 		if(users.add(us)) {

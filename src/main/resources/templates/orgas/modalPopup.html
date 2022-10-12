@@ -1,0 +1,23 @@
+<div class="ui modal">
+    <div class="header"><% orgaPopup.name %></div>
+    <div class="content">
+    	<table class="ui celled table">
+			<thead>
+	   			<tr>
+	    			<th>Groupes ()</th>
+	    			<th>Utilisateurs ()</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td v-for="group in groups">
+						<li style="list-style-type: none;"><% group.name %></li>
+					</td>
+					<td v-for="user in orgaPopup.users">
+						<li style="list-style-type: none;"><% user.firstname %> <% user.lastname %></li>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+    </div>
+</div>

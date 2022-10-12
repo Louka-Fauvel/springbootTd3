@@ -27,7 +27,7 @@
 	</thead>
   	<tbody>
     	<tr v-for="orga in organizations">
-      		<td><% orga.name %></td>
+      		<td @click="popup(orga)"><% orga.name %></td>
       		<td><% orga.domain %></td>
       		<td><% orga.aliases %></td>
       		<td>
@@ -47,4 +47,5 @@
   	</tbody>
 </table>
 
+{{> /orgas/modalPopup }}
 {{> /partials/footer }}

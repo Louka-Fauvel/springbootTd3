@@ -1,6 +1,7 @@
 package edu.caensup.sio.td3.messagerie.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +17,10 @@ import io.github.jeemv.springboot.vuejs.utilities.JsArray;
 @RequestMapping("/orgas")
 public class OrgaController {
 
-	private static String restUrl = "http://127.0.0.1:8080/rest/organizations/";
+	private static String restUrl;
+	
+	@Autowired
+	private Environment env;
 	
 	@Autowired
 	private VueJS vue;
@@ -35,8 +39,12 @@ public class OrgaController {
 	@GetMapping("")
 	public String indexAction() {
 		
+		restUrl = env.getProperty("rest.url") + "organizations/";
+		
 		vue.addData("toDelete");
 		vue.addData("orga");
+		vue.addData("orgaPopup");
+		vue.addData("groups", "[]");
 		vue.addData("organizations", organizationDAO.findAll());
 		
 		vue.addMethod("remove", Http.delete(orgaService.getURL(restUrl, "orga.id"), 
@@ -58,6 +66,10 @@ public class OrgaController {
 				(Object)"this.orga", "Object.assign(this.orga.original, response.data);this.orga=null;")));
 		
 		vue.addMethod("addOrUpdate", "if(this.orga.id) {this.updateOrgaSubmit();} else {this.newOrgaSubmit();}");
+		
+		vue.addMethod("popup", "this.orgaPopup=orga;"
+				+ Http.get(orgaService.getURL(restUrl, "orga.id") + "+'/groups", "this.groups=response.data;")
+				+ orgaService.modal() + ";", "orga");
 		
 		return "index";
 		
